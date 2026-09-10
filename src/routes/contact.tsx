@@ -65,8 +65,8 @@ function ContactPage() {
       }
       setErrors(next);
       const firstKey = Object.keys(next)[0];
-      const field = formRef.current?.elements.namedItem(firstKey!) as HTMLElement | null;
-      field?.focus();
+      const field = firstKey ? formRef.current?.elements.namedItem(firstKey) : null;
+      if (field instanceof HTMLElement) field.focus();
       return;
     }
 
@@ -244,7 +244,7 @@ function Field({
 }: {
   id: string;
   label: string;
-  error?: string;
+  error?: string | undefined;
   hint?: string;
   optional?: boolean;
   children: React.ReactNode;
