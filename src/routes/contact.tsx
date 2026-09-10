@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useRef, useState } from "react";
@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { contactSchema, submitContactMessage } from "@/lib/contact.functions";
 import { breadcrumbLd, pageHead } from "@/lib/seo";
-import { SITE } from "@/lib/site";
+
 
 const title = "Contact NexaFlow — talk to the team";
 const description =
-  "Ask about plans, onboarding or a specific workflow. Send the NexaFlow team a message and get a reply from a person, usually within one business day.";
+  "Contact NexaFlow about workflow automation, proposed plans, or product questions. Send your enquiry directly to the team.";
 
-const searchSchema = z.object({ plan: z.string().optional() });
+const searchSchema = z.object({ plan: z.enum(["free", "pro", "business"]).optional().catch(undefined) });
 
 export const Route = createFileRoute("/contact")({
   validateSearch: searchSchema,
@@ -48,14 +48,17 @@ function ContactPage() {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const formRef = useRef<HTMLFormElement>(null);
+  const submitting = useRef(false);
+  const submissionId = useRef<string | null>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status === "sending" || status === "sent") return; // prevents duplicate submits
+    if (submitting.current || status === "sent") return; // prevents duplicate submits
 
     const formData = new FormData(event.currentTarget);
     const raw = Object.fromEntries(formData) as Record<string, string>;
-    const parsed = contactSchema.safeParse(raw);
+    submissionId.current ??= crypto.randomUUID();
+    const parsed = contactSchema.safeParse({ ...raw, submission_id: submissionId.current });
 
     if (!parsed.success) {
       const next: Errors = {};
@@ -71,14 +74,18 @@ function ContactPage() {
     }
 
     setErrors({});
+    submitting.current = true;
     setStatus("sending");
     try {
-      await send({ data: parsed.data });
+      const result = await send({ data: parsed.data });
+      if (!result.ok) throw new Error("Submission rejected");
       trackEvent("generate_lead", { topic: parsed.data.topic, plan: plan ?? "none" });
       setStatus("sent");
     } catch {
       setStatus("idle");
       setErrors({ form: "We couldn't send your message. Please try again in a moment." });
+    } finally {
+      submitting.current = false;
     }
   }
 
@@ -87,7 +94,7 @@ function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Tell us what you're trying to automate"
-        intro="Whether you're comparing plans or stuck on a specific workflow, send the details and a person will reply — usually within one business day."
+        intro="Have a workflow in mind? Tell us about your team, your process, and what you would like to simplify."
       />
 
       <section>
@@ -99,8 +106,7 @@ function ContactPage() {
                 <div>
                   <h2 className="text-lg font-semibold">Message sent</h2>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Thanks — we've got it. You'll hear back at the email address you gave us,
-                    usually within one business day.
+                    Thanks — your enquiry has been saved for the NexaFlow team. Keep an eye on the email address you provided.
                   </p>
                 </div>
               </div>
@@ -119,7 +125,7 @@ function ContactPage() {
                     id="name"
                     name="name"
                     type="text"
-                    autoComplete="name"
+                    autoComplete="name" maxLength={80}
                     required
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? "name-error" : undefined}
@@ -132,7 +138,7 @@ function ContactPage() {
                     id="email"
                     name="email"
                     type="email"
-                    autoComplete="email"
+                    autoComplete="email" maxLength={160}
                     required
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
@@ -146,6 +152,9 @@ function ContactPage() {
                     name="company"
                     type="text"
                     autoComplete="organization"
+                    maxLength={120}
+                    aria-invalid={!!errors.company}
+                    aria-describedby={errors.company ? "company-error" : undefined}
                     className={inputClass}
                   />
                 </Field>
@@ -178,7 +187,7 @@ function ContactPage() {
                   <textarea
                     id="message"
                     name="message"
-                    rows={6}
+                    rows={6} maxLength={2000}
                     required
                     defaultValue={plan ? `I'm interested in the ${plan} plan. ` : ""}
                     aria-invalid={!!errors.message}
@@ -204,26 +213,17 @@ function ContactPage() {
                   )}
                 </Button>
                 <p className="text-xs text-muted-foreground">
-                  We use your details only to reply. See the Privacy Policy for how long we keep
-                  them.
+                  We use your details only to reply. Read our <Link to="/privacy-policy" className="underline underline-offset-4">Privacy Policy</Link> for details.
                 </p>
               </form>
             )}
           </div>
 
-          <aside className="panel h-fit p-6">
-            <h2 className="text-lg font-semibold">Other ways to reach us</h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Prefer email? Write to{" "}
-              <a className="underline underline-offset-4" href={`mailto:${SITE.email}`}>
-                {SITE.email}
-              </a>
-              .
-            </p>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Support hours are Monday to Friday, 09:00–18:00 UTC. Business plans get a four-hour
-              response target during those hours.
-            </p>
+          <aside className="h-fit border-l border-border pl-6">
+            <h2 className="text-lg font-semibold">Good work starts with a conversation.</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Share a repetitive task, a project bottleneck, or an idea. No payment details needed.</p>
+            <p className="mt-5 text-sm text-muted-foreground">This form sends an enquiry; it does not create a product account or start a paid subscription.</p>
+            <Link to="/faq" className="mt-5 inline-block text-sm underline underline-offset-4">Browse common questions →</Link>
           </aside>
         </Container>
       </section>
@@ -232,7 +232,7 @@ function ContactPage() {
 }
 
 const inputClass =
-  "min-h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none";
+  "min-h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base text-foreground placeholder:text-muted-foreground";
 
 function Field({
   id,
