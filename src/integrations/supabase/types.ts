@@ -22,6 +22,7 @@ export type Database = {
           id: string
           message: string
           name: string
+          submission_id: string | null
           topic: string
         }
         Insert: {
@@ -31,6 +32,7 @@ export type Database = {
           id?: string
           message: string
           name: string
+          submission_id?: string | null
           topic: string
         }
         Update: {
@@ -40,6 +42,7 @@ export type Database = {
           id?: string
           message?: string
           name?: string
+          submission_id?: string | null
           topic?: string
         }
         Relationships: []

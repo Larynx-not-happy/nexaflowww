@@ -1,0 +1,3 @@
+REVOKE INSERT ON public.contact_messages FROM anon, authenticated;
+ALTER TABLE public.contact_messages ADD COLUMN submission_id uuid UNIQUE;
+ALTER TABLE public.contact_messages ADD CONSTRAINT contact_name_length CHECK (char_length(trim(name)) BETWEEN 2 AND 80), ADD CONSTRAINT contact_email_length CHECK (char_length(email) BETWEEN 3 AND 160), ADD CONSTRAINT contact_company_length CHECK (company IS NULL OR char_length(company) <= 120), ADD CONSTRAINT contact_message_length CHECK (char_length(trim(message)) BETWEEN 20 AND 2000), ADD CONSTRAINT contact_topic_valid CHECK (topic IN ('sales','support','partnership','other'));
