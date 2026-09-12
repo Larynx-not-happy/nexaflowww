@@ -41,7 +41,7 @@ export const INDEXABLE_ROUTES = [
 ] as const;
 
 export type Plan = {
-  id: string;
+  id: "free" | "pro" | "business";
   name: string;
   blurb: string;
   monthly: number;
@@ -59,7 +59,7 @@ export const PLANS: Plan[] = [
     blurb: "For individuals automating their own day-to-day work.",
     monthly: 0,
     yearly: 0,
-    cta: "Start for free",
+    cta: "Ask about Free",
     features: [
       "1 workspace, 1 seat",
       "5 active automations",
@@ -75,14 +75,14 @@ export const PLANS: Plan[] = [
     monthly: 19,
     yearly: 15,
     featured: true,
-    cta: "Start 14-day trial",
+    cta: "Ask about Pro",
     features: [
       "Up to 10 seats",
       "Unlimited automations",
       "25,000 monthly task runs",
       "AI workflow builder and summaries",
       "Project templates and dashboards",
-      "Email support, 1 business day",
+      "Email support",
     ],
   },
   {
@@ -98,34 +98,16 @@ export const PLANS: Plan[] = [
       "Advanced permissions and audit log",
       "Single sign-on (SAML)",
       "Sandbox environment",
-      "Priority support with 4-hour response",
+      "Priority support",
     ],
   },
 ];
 
 export const FAQS = [
-  {
-    q: "What does NexaFlow actually do?",
-    a: "NexaFlow connects the tools your team already uses and runs repeatable work for you: routing requests, creating and assigning tasks, chasing updates, and summarising project status. You build a workflow once, and it runs on a schedule or whenever a trigger fires.",
-  },
-  {
-    q: "Do I need to know how to code?",
-    a: "No. Workflows are built from visual steps, and you can describe what you want in plain language and have the AI builder draft the steps for you. Teams that do write code can still call custom HTTP endpoints inside a workflow.",
-  },
-  {
-    q: "How is a task run counted?",
-    a: "One task run is one step executed inside a workflow. A workflow with four steps that runs ten times uses forty task runs. Usage is shown in your dashboard so you can see exactly where your allowance goes.",
-  },
-  {
-    q: "Can I try NexaFlow before paying?",
-    a: "Yes. The Free plan has no time limit and no card required, and Pro includes a 14-day trial. You can move between plans at any time and the change is prorated.",
-  },
-  {
-    q: "What happens to my data if I cancel?",
-    a: "Your workspace becomes read-only at the end of the billing period and you can export tasks, projects and run history as CSV or JSON. Data is deleted 30 days after cancellation unless you ask us to remove it sooner.",
-  },
-  {
-    q: "Do you offer support during onboarding?",
-    a: "Pro plans include email support with a one business day target. Business plans add priority support with a four-hour target during business hours and a guided onboarding session.",
-  },
+  { q: "What is NexaFlow?", a: "NexaFlow is a fictional AI-powered productivity product, designed around workflow automation, task organisation and project management. This website presents that product concept; it is not a working automation application." },
+  { q: "Do I need to know how to code?", a: "The proposed product uses a visual workflow builder with AI-assisted drafting, designed for teams without coding experience. The builder and integrations are not available on this website." },
+  { q: "How is a task run counted?", a: "In the proposed pricing model, one task run is one executed workflow step. A four-step workflow running ten times would use forty task runs. All limits shown are illustrative and editable." },
+  { q: "Can I start a free plan or trial here?", a: "Not yet. Free, Pro and Business are example plans, not purchasable subscriptions. The plan buttons open a contact form with your interest prefilled; they do not create an account, charge a card or activate a trial." },
+  { q: "What happens when I submit the contact form?", a: "Your validated message is stored privately in Lovable Cloud for the site operator to review. No public message listing is available. There is no automated email notification or guaranteed response time." },
+  { q: "Can I control analytics and request deletion?", a: "Yes. Analytics is optional and only enabled after consent and configuration of a real GA4 ID. Reopen Cookie preferences in the footer to change your choice. Contact the site operator about message deletion; see the Privacy Policy for details." },
 ] as const;

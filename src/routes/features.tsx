@@ -84,9 +84,9 @@ function FeaturesPage() {
   return (
     <main id="main">
       <PageHeader
-        eyebrow="Features"
+        eyebrow="Product concept · Planned features"
         title="One dashboard for the work, and the work about the work"
-        intro="NexaFlow combines an automation engine with everyday task and project management, so a workflow can create, assign and close real work instead of just sending messages."
+        intro="Explore the NexaFlow product vision: AI automation, tasks and projects in one workspace. These are proposed capabilities, not live tools on this website."
       />
 
       {groups.map((group) => (
@@ -114,7 +114,7 @@ function FeaturesPage() {
             <Link to="/faq" className="underline underline-offset-4">
               FAQ
             </Link>{" "}
-            covers task-run limits, trials and data export, and the{" "}
+            explains the product concept and how this site works, and the{" "}
             <Link to="/pricing" className="underline underline-offset-4">
               pricing page
             </Link>{" "}

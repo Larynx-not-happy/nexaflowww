@@ -34,7 +34,7 @@ function PricingPage() {
       <PageHeader
         eyebrow="Pricing"
         title="Simple plans, priced per seat"
-        intro="Start free and upgrade when automation becomes part of how your team works. Prices below are placeholders for this demonstration site."
+        intro="Illustrative Free, Pro and Business plans, in USD. Plan buttons send an enquiry; no accounts, trials, billing or payments are activated."
       />
 
       <section className="border-b border-border">
@@ -50,7 +50,7 @@ function PricingPage() {
             >
               {[
                 { key: false, label: "Monthly" },
-                { key: true, label: "Yearly (save 20%)" },
+                { key: true, label: "Yearly (save ~20%)" },
               ].map((option) => (
                 <button
                   key={String(option.key)}
@@ -69,7 +69,7 @@ function PricingPage() {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <div aria-live="polite" aria-atomic="true" className="mt-10 grid gap-6 lg:grid-cols-3">
             {PLANS.map((plan) => {
               const price = yearly ? plan.yearly : plan.monthly;
               return (
@@ -94,6 +94,7 @@ function PricingPage() {
                       {price === 0 ? "forever" : `per seat / month${yearly ? ", billed yearly" : ""}`}
                     </span>
                   </p>
+                  {yearly && price > 0 && <p className="mt-2 text-xs text-muted-foreground">${price * 12} per seat / year, billed annually</p>}
                   <ul className="mt-6 flex-1 space-y-3 text-sm">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex gap-3">
@@ -127,7 +128,7 @@ function PricingPage() {
             <Link to="/faq" className="underline underline-offset-4">
               FAQ
             </Link>{" "}
-            explains how task runs are counted and what happens when you switch plans.
+            explains the proposed task-run model and what this website offers.
           </p>
         </Container>
       </section>

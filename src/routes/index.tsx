@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bot, CalendarClock, GitBranch, LineChart, ShieldCheck, Workflow } from "lucide-react";
 
-import heroImage from "@/assets/hero-dashboard.jpg";
+import heroImage from "@/assets/hero-dashboard.webp";
 import { Container, CtaBand } from "@/components/site/Sections";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
@@ -30,7 +30,8 @@ export const Route = createFileRoute("/")({
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
-          description: "Free plan with 5 active automations",
+          description: "Illustrative Free plan; not available for purchase",
+          availability: "https://schema.org/PreOrder",
         },
       },
     }),
@@ -92,10 +93,10 @@ function HomePage() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg">
                 <Link
-                  to="/contact"
+                  to="/pricing"
                   onClick={() => trackEvent("cta_click", { location: "hero", label: "get_started" })}
                 >
-                  Get started free
+                  Explore the plans
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
@@ -108,7 +109,7 @@ function HomePage() {
               </Button>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Free plan, no card required. Cancel or export your data whenever you like.
+              Product concept · Explore the features and share your interest.
             </p>
           </div>
 
@@ -119,7 +120,7 @@ function HomePage() {
               height={1000}
               fetchPriority="high"
               decoding="async"
-              alt="NexaFlow dashboard showing automation run trends, project progress and team capacity"
+              alt="Illustrative dashboard concept with automation trends, project progress and team capacity"
               className="h-auto w-full"
             />
           </div>
@@ -170,10 +171,9 @@ function HomePage() {
         <Container className="grid gap-8 py-16 md:grid-cols-2 md:items-center">
           <div>
             <ShieldCheck className="h-6 w-6 text-primary" aria-hidden="true" />
-            <h2 className="mt-4 text-3xl font-bold">Built to be boring about your data</h2>
+            <h2 className="mt-4 text-3xl font-bold">Your trust is part of the workflow</h2>
             <p className="mt-3 text-muted-foreground">
-              Role-based permissions, an audit log of every automated action, and exports whenever
-              you want them. You can see exactly what ran, when, and on whose behalf.
+              This website keeps enquiries private and analytics optional. The planned product puts clear permissions and readable workflows at the centre of the experience.
             </p>
             <p className="mt-4 text-sm">
               <Link to="/privacy-policy" className="underline underline-offset-4">
@@ -183,10 +183,10 @@ function HomePage() {
           </div>
           <dl className="grid grid-cols-2 gap-4">
             {[
-              ["5 min", "Median time to first workflow"],
-              ["120+", "Prebuilt automation templates"],
-              ["Every run", "Logged with inputs and outputs"],
-              ["Unlimited", "Projects on paid plans"],
+              ["Private", "Contact message storage"],
+              ["Opt-in", "Website analytics"],
+              ["No card", "Needed to enquire"],
+              ["Your choice", "Cookie preferences"],
             ].map(([value, label]) => (
               <div key={label} className="panel p-5">
                 <dt className="sr-only">{label}</dt>

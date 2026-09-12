@@ -32,7 +32,7 @@ export function PageHeader({
 
 export function CtaBand({
   title = "Ready to automate the busywork?",
-  body = "Start free with no card, or talk to us about rolling NexaFlow out across your team.",
+  body = "Tell us about your team and the workflow you would like to simplify.",
   location,
 }: {
   title?: string;
@@ -52,7 +52,7 @@ export function CtaBand({
               to="/contact"
               onClick={() => trackEvent("cta_click", { location, label: "get_started" })}
             >
-              Get started
+              Contact the team
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline">
