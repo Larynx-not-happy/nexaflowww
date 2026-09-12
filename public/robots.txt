@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-
-Sitemap: https://nexaflow.com/sitemap.xml
