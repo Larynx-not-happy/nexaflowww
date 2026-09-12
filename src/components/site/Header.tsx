@@ -39,7 +39,7 @@ export function Header() {
         <div className="hidden md:block">
           <Button asChild size="sm">
             <Link to="/contact" onClick={() => trackEvent("cta_click", { location: "header" })}>
-              Get started
+              Let’s talk
             </Link>
           </Button>
         </div>
@@ -80,7 +80,7 @@ export function Header() {
                     trackEvent("cta_click", { location: "mobile_header" });
                   }}
                 >
-                  Get started
+                  Let’s talk
                 </Link>
               </Button>
             </li>

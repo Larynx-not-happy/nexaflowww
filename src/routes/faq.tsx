@@ -10,9 +10,9 @@ import {
 import { breadcrumbLd, pageHead } from "@/lib/seo";
 import { FAQS } from "@/lib/site";
 
-const title = "FAQ — task runs, trials, data and support | NexaFlow";
+const title = "FAQ — product, plans, privacy and contact | NexaFlow";
 const description =
-  "Answers to common NexaFlow questions: what the platform does, whether you need to code, how task runs are counted, trials, data export and support.";
+  "Answers to common NexaFlow questions: what the platform does, whether you need to code, how task runs are counted, example plans, privacy and contact.";
 
 export const Route = createFileRoute("/faq")({
   head: () =>
@@ -80,7 +80,7 @@ function FaqPage() {
 
       <CtaBand
         title="Question not answered?"
-        body="Send it to our team and you'll get a reply from a person, usually within one business day."
+        body="Tell us what you would like to know about the NexaFlow concept."
         location="faq_footer"
       />
     </main>
