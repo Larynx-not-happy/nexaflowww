@@ -14,7 +14,10 @@ export function Footer() {
             {SITE.tagline} NexaFlow brings automation, tasks and projects into one calm dashboard.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
-            <a className="underline underline-offset-4 hover:text-foreground" href={`mailto:${SITE.email}`}>
+            <a
+              className="underline underline-offset-4 hover:text-foreground"
+              href={`mailto:${SITE.email}`}
+            >
               {SITE.email}
             </a>
           </p>
