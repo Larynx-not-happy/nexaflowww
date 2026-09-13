@@ -21,7 +21,7 @@ import { NAV_LINKS, SITE } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
-    <main id="main" className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
+    <main id="main" tabIndex={-1} className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
       <title>Page not found | NexaFlow</title>
       <meta name="robots" content="noindex, follow" />
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Error 404</p>
@@ -58,7 +58,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <main id="main" className="flex min-h-[60vh] items-center justify-center px-4">
+    <main id="main" tabIndex={-1} className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -149,7 +149,6 @@ function RootComponent() {
 
   useEffect(() => {
     trackPageView(pathname);
-    document.querySelector('main')?.setAttribute('tabindex', '-1');
   }, [pathname]);
 
   return (

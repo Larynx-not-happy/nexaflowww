@@ -41,7 +41,7 @@ export const Route = createFileRoute("/faq")({
 
 function FaqPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="FAQ"
         title="Frequently asked questions"

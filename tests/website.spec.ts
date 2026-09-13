@@ -29,20 +29,20 @@ test('pricing, FAQ, keyboard, consent and mobile layouts',async({page})=>{
  await page.goto(base+'/pricing');await page.getByRole('button',{name:'Essential only'}).click();
  await page.getByRole('button',{name:'Yearly (save ~20%)'}).click();await expect(page.getByText('$180 per seat / year, billed annually')).toBeVisible();
  await page.getByRole('link',{name:'Ask about Pro'}).click();await expect(page.locator('#message')).toHaveValue("I'm interested in the pro plan. ");await expect(page.locator('#topic')).toHaveValue('sales');
- await page.goto(base+'/faq');const question=page.getByRole('button',{name:'What is NexaFlow?'});await question.focus();await page.keyboard.press('Enter');await expect(question).toHaveAttribute('aria-expanded','true');
+ await page.goto(base+'/faq');await page.waitForLoadState('networkidle');const question=page.getByRole('button',{name:'What is NexaFlow?'});await question.focus();await page.keyboard.press('Enter');await expect(question).toHaveAttribute('aria-expanded','true');
  await page.getByRole('button',{name:'Cookie preferences'}).click();await page.getByRole('button',{name:'Accept analytics'}).click();expect(await page.evaluate(()=>localStorage.getItem('nexaflow.cookie-consent.v1'))).toBe('accepted');expect(tracking).toEqual([]);
  await page.reload();await expect(page.getByRole('dialog')).toHaveCount(0);await page.getByRole('button',{name:'Cookie preferences'}).click();await page.getByRole('button',{name:'Essential only'}).click();
  for(const width of [320,375,768,1440]) {
   await page.setViewportSize({width,height:900});
   for(const path of routes) {await page.goto(base+path);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${width} ${path}`).toBe(true)}
  }
- await page.setViewportSize({width:375,height:812});await page.goto(base+'/');await page.getByRole('button',{name:'Open menu'}).click();await expect(page.getByRole('navigation',{name:'Mobile'})).toBeVisible();await page.keyboard.press('Escape');await expect(page.getByRole('navigation',{name:'Mobile'})).toHaveCount(0);
+ await page.setViewportSize({width:375,height:812});await page.goto(base+'/');await page.waitForLoadState('networkidle');await page.getByRole('button',{name:'Open menu'}).click();await expect(page.getByRole('navigation',{name:'Mobile'})).toBeVisible();await page.keyboard.press('Escape');await expect(page.getByRole('navigation',{name:'Mobile'})).toHaveCount(0);
  await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('.rise').evaluate(el=>parseFloat(getComputedStyle(el).animationDuration))).toBeLessThan(.01);
  await page.screenshot({path:'/mnt/documents/nexaflow-mobile.png',fullPage:true});
 });
 test('contact validates, submits once and handles network errors',async({page})=>{
  await page.goto(base+'/contact');await page.getByRole('button',{name:'Essential only'}).click();await page.getByRole('button',{name:'Send message'}).click();await expect(page.locator('#name')).toBeFocused();await expect(page.locator('#name-error')).toBeVisible();
  await page.locator('#name').fill('NexaFlow QA');await page.locator('#email').fill('qa-nexaflow@example.com');await page.locator('#topic').selectOption('other');await page.locator('#message').fill('Automated QA submission: verifying private contact storage.');
- await page.route('**/*',route=>route.request().method()==='POST'?route.abort():route.continue());await page.getByRole('button',{name:'Send message'}).click();await expect(page.getByRole('alert')).toContainText("couldn't send");await page.unroute('**/*');
+ await page.route('**/*',route=>route.request().method()==='POST'?route.abort():route.continue());await page.getByRole('button',{name:'Send message'}).click();await expect(page.getByRole('alert')).toContainText("couldn't send");await page.unrouteAll();
  let posts=0;page.on('request',r=>{if(r.method()==='POST')posts++});await page.getByRole('button',{name:'Send message'}).dblclick();await expect(page.getByRole('heading',{name:'Message sent'})).toBeVisible();expect(posts).toBe(1);
 });

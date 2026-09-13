@@ -76,7 +76,7 @@ const steps = [
 
 function HomePage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <section className="glow-top border-b border-border">
         <Container className="grid gap-12 py-16 lg:grid-cols-2 lg:items-center lg:py-24">
           <div className="rise">

@@ -30,7 +30,7 @@ function PricingPage() {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Pricing"
         title="Simple plans, priced per seat"

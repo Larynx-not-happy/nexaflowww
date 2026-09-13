@@ -63,7 +63,7 @@ const sections = [
 
 function TermsPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Legal"
         title="Terms & Conditions"

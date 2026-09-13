@@ -82,7 +82,7 @@ const groups = [
 
 function FeaturesPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Product concept · Planned features"
         title="One dashboard for the work, and the work about the work"

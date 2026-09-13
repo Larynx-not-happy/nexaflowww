@@ -38,7 +38,7 @@ const values = [
 
 function AboutPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="About"
         title="We build automation that teams can read"

@@ -90,7 +90,7 @@ function ContactPage() {
   }
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Contact"
         title="Tell us what you're trying to automate"

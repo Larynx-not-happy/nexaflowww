@@ -25,7 +25,7 @@ export const Route = createFileRoute("/privacy-policy")({
 
 function PrivacyPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Legal"
         title="Privacy Policy"
