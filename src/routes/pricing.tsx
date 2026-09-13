@@ -30,7 +30,7 @@ function PricingPage() {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Pricing"
         title="Simple plans, priced per seat"
@@ -91,14 +91,23 @@ function PricingPage() {
                   <p className="mt-6">
                     <span className="font-display text-4xl font-bold">${price}</span>
                     <span className="ml-2 text-sm text-muted-foreground">
-                      {price === 0 ? "forever" : `per seat / month${yearly ? ", billed yearly" : ""}`}
+                      {price === 0
+                        ? "forever"
+                        : `per seat / month${yearly ? ", billed yearly" : ""}`}
                     </span>
                   </p>
-                  {yearly && price > 0 && <p className="mt-2 text-xs text-muted-foreground">${price * 12} per seat / year, billed annually</p>}
+                  {yearly && price > 0 && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      ${price * 12} per seat / year, billed annually
+                    </p>
+                  )}
                   <ul className="mt-6 flex-1 space-y-3 text-sm">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex gap-3">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                          aria-hidden="true"
+                        />
                         <span className="text-muted-foreground">{feature}</span>
                       </li>
                     ))}

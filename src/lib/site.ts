@@ -104,10 +104,28 @@ export const PLANS: Plan[] = [
 ];
 
 export const FAQS = [
-  { q: "What is NexaFlow?", a: "NexaFlow is a fictional AI-powered productivity product, designed around workflow automation, task organisation and project management. This website presents that product concept; it is not a working automation application." },
-  { q: "Do I need to know how to code?", a: "The proposed product uses a visual workflow builder with AI-assisted drafting, designed for teams without coding experience. The builder and integrations are not available on this website." },
-  { q: "How is a task run counted?", a: "In the proposed pricing model, one task run is one executed workflow step. A four-step workflow running ten times would use forty task runs. All limits shown are illustrative and editable." },
-  { q: "Can I start a free plan or trial here?", a: "Not yet. Free, Pro and Business are example plans, not purchasable subscriptions. The plan buttons open a contact form with your interest prefilled; they do not create an account, charge a card or activate a trial." },
-  { q: "What happens when I submit the contact form?", a: "Your validated message is stored privately in Lovable Cloud for the site operator to review. No public message listing is available. There is no automated email notification or guaranteed response time." },
-  { q: "Can I control analytics and request deletion?", a: "Yes. Analytics is optional and only enabled after consent and configuration of a real GA4 ID. Reopen Cookie preferences in the footer to change your choice. Contact the site operator about message deletion; see the Privacy Policy for details." },
+  {
+    q: "What is NexaFlow?",
+    a: "NexaFlow is a fictional AI-powered productivity product, designed around workflow automation, task organisation and project management. This website presents that product concept; it is not a working automation application.",
+  },
+  {
+    q: "Do I need to know how to code?",
+    a: "The proposed product uses a visual workflow builder with AI-assisted drafting, designed for teams without coding experience. The builder and integrations are not available on this website.",
+  },
+  {
+    q: "How is a task run counted?",
+    a: "In the proposed pricing model, one task run is one executed workflow step. A four-step workflow running ten times would use forty task runs. All limits shown are illustrative and editable.",
+  },
+  {
+    q: "Can I start a free plan or trial here?",
+    a: "Not yet. Free, Pro and Business are example plans, not purchasable subscriptions. The plan buttons open a contact form with your interest prefilled; they do not create an account, charge a card or activate a trial.",
+  },
+  {
+    q: "What happens when I submit the contact form?",
+    a: "Your validated message is stored privately in Lovable Cloud for the site operator to review. No public message listing is available. There is no automated email notification or guaranteed response time.",
+  },
+  {
+    q: "Can I control analytics and request deletion?",
+    a: "Yes. Analytics is optional and only enabled after consent and configuration of a real GA4 ID. Reopen Cookie preferences in the footer to change your choice. Contact the site operator about message deletion; see the Privacy Policy for details.",
+  },
 ] as const;

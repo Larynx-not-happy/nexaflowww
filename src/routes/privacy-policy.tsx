@@ -25,7 +25,7 @@ export const Route = createFileRoute("/privacy-policy")({
 
 function PrivacyPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Legal"
         title="Privacy Policy"
@@ -60,7 +60,9 @@ function PrivacyPage() {
                 <li>
                   <strong className="text-foreground">Analytics data.</strong> If you accept
                   analytics cookies, Google Analytics 4 collects pages viewed, approximate location
-                  derived from IP address and device information. Our custom events omit contact details, URL query strings and referrers. Google does not log or store individual IP addresses in GA4.
+                  derived from IP address and device information. Our custom events omit contact
+                  details, URL query strings and referrers. Google does not log or store individual
+                  IP addresses in GA4.
                 </li>
                 <li>
                   <strong className="text-foreground">Technical logs.</strong> Our hosting provider
@@ -73,10 +75,10 @@ function PrivacyPage() {
             <section>
               <h2 className="text-xl font-bold text-foreground">3. How we use it</h2>
               <p className="mt-3">
-                Contact form data is processed to respond to your request (pre-contractual steps or legitimate interests, as applicable) and to keep a record of the
-                conversation. Analytics data is used in aggregate to understand which pages help
-                visitors. We do not sell personal data and we do not use it for automated
-                decision-making.
+                Contact form data is processed to respond to your request (pre-contractual steps or
+                legitimate interests, as applicable) and to keep a record of the conversation.
+                Analytics data is used in aggregate to understand which pages help visitors. We do
+                not sell personal data and we do not use it for automated decision-making.
               </p>
             </section>
 
@@ -110,7 +112,8 @@ function PrivacyPage() {
                 <li>Google Analytics 4 — website analytics, loaded only with your consent.</li>
                 <li>Google Fonts — serves the typefaces used on this site.</li>
                 <li>
-                  Lovable Cloud (Supabase infrastructure) — stores contact form submissions privately and serves the site.
+                  Lovable Cloud (Supabase infrastructure) — stores contact form submissions
+                  privately and serves the site.
                 </li>
               </ul>
               <p className="mt-3">
@@ -123,8 +126,10 @@ function PrivacyPage() {
               <h2 className="text-xl font-bold text-foreground">6. Retention</h2>
               <p className="mt-3">
                 Contact messages are kept for as long as needed to handle your enquiry and up to 24
-                months afterwards. This is a manual retention target, not an automated deletion schedule; the operator must review and remove old records. Analytics data follows the configured Google Analytics retention settings. Ask
-                us and we will delete your message sooner.
+                months afterwards. This is a manual retention target, not an automated deletion
+                schedule; the operator must review and remove old records. Analytics data follows
+                the configured Google Analytics retention settings. Ask us and we will delete your
+                message sooner.
               </p>
             </section>
 

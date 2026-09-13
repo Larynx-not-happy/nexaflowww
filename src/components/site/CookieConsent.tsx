@@ -41,9 +41,12 @@ export function CookieConsent() {
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Essential cookies keep the site working and are always on. Analytics cookies (Google
-            Analytics 4) help us understand which pages are useful, and only load if you accept.
-            You can change this any time from “Cookie preferences” in the footer. Read our{" "}
-            <Link to="/privacy-policy" className="underline underline-offset-4 hover:text-foreground">
+            Analytics 4) help us understand which pages are useful, and only load if you accept. You
+            can change this any time from “Cookie preferences” in the footer. Read our{" "}
+            <Link
+              to="/privacy-policy"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
               Privacy Policy
             </Link>
             .

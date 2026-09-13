@@ -10,12 +10,13 @@ import { trackEvent } from "@/lib/analytics";
 import { contactSchema, submitContactMessage } from "@/lib/contact.functions";
 import { breadcrumbLd, pageHead } from "@/lib/seo";
 
-
 const title = "Contact NexaFlow — talk to the team";
 const description =
   "Contact NexaFlow about workflow automation, proposed plans, or product questions. Send your enquiry directly to the team.";
 
-const searchSchema = z.object({ plan: z.enum(["free", "pro", "business"]).optional().catch(undefined) });
+const searchSchema = z.object({
+  plan: z.enum(["free", "pro", "business"]).optional().catch(undefined),
+});
 
 export const Route = createFileRoute("/contact")({
   validateSearch: searchSchema,
@@ -90,7 +91,7 @@ function ContactPage() {
   }
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PageHeader
         eyebrow="Contact"
         title="Tell us what you're trying to automate"
@@ -106,7 +107,8 @@ function ContactPage() {
                 <div>
                   <h2 className="text-lg font-semibold">Message sent</h2>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Thanks — your enquiry has been saved for the NexaFlow team. Keep an eye on the email address you provided.
+                    Thanks — your enquiry has been saved for the NexaFlow team. Keep an eye on the
+                    email address you provided.
                   </p>
                 </div>
               </div>
@@ -115,7 +117,10 @@ function ContactPage() {
                 <h2 className="text-xl font-bold">Send a message</h2>
 
                 {errors.form && (
-                  <p role="alert" className="rounded-md border border-destructive px-4 py-3 text-sm">
+                  <p
+                    role="alert"
+                    className="rounded-md border border-destructive px-4 py-3 text-sm"
+                  >
                     {errors.form}
                   </p>
                 )}
@@ -125,7 +130,8 @@ function ContactPage() {
                     id="name"
                     name="name"
                     type="text"
-                    autoComplete="name" maxLength={80}
+                    autoComplete="name"
+                    maxLength={80}
                     required
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? "name-error" : undefined}
@@ -138,7 +144,8 @@ function ContactPage() {
                     id="email"
                     name="email"
                     type="email"
-                    autoComplete="email" maxLength={160}
+                    autoComplete="email"
+                    maxLength={160}
                     required
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
@@ -187,7 +194,8 @@ function ContactPage() {
                   <textarea
                     id="message"
                     name="message"
-                    rows={6} maxLength={2000}
+                    rows={6}
+                    maxLength={2000}
                     required
                     defaultValue={plan ? `I'm interested in the ${plan} plan. ` : ""}
                     aria-invalid={!!errors.message}
@@ -213,7 +221,11 @@ function ContactPage() {
                   )}
                 </Button>
                 <p className="text-xs text-muted-foreground">
-                  We use your details only to reply. Read our <Link to="/privacy-policy" className="underline underline-offset-4">Privacy Policy</Link> for details.
+                  We use your details only to reply. Read our{" "}
+                  <Link to="/privacy-policy" className="underline underline-offset-4">
+                    Privacy Policy
+                  </Link>{" "}
+                  for details.
                 </p>
               </form>
             )}
@@ -221,9 +233,16 @@ function ContactPage() {
 
           <aside className="h-fit border-l border-border pl-6">
             <h2 className="text-lg font-semibold">Good work starts with a conversation.</h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Share a repetitive task, a project bottleneck, or an idea. No payment details needed.</p>
-            <p className="mt-5 text-sm text-muted-foreground">This form sends an enquiry; it does not create a product account or start a paid subscription.</p>
-            <Link to="/faq" className="mt-5 inline-block text-sm underline underline-offset-4">Browse common questions →</Link>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Share a repetitive task, a project bottleneck, or an idea. No payment details needed.
+            </p>
+            <p className="mt-5 text-sm text-muted-foreground">
+              This form sends an enquiry; it does not create a product account or start a paid
+              subscription.
+            </p>
+            <Link to="/faq" className="mt-5 inline-block text-sm underline underline-offset-4">
+              Browse common questions →
+            </Link>
           </aside>
         </Container>
       </section>

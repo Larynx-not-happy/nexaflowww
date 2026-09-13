@@ -76,7 +76,7 @@ const steps = [
 
 function HomePage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <section className="glow-top border-b border-border">
         <Container className="grid gap-12 py-16 lg:grid-cols-2 lg:items-center lg:py-24">
           <div className="rise">
@@ -94,7 +94,9 @@ function HomePage() {
               <Button asChild size="lg">
                 <Link
                   to="/pricing"
-                  onClick={() => trackEvent("cta_click", { location: "hero", label: "get_started" })}
+                  onClick={() =>
+                    trackEvent("cta_click", { location: "hero", label: "get_started" })
+                  }
                 >
                   Explore the plans
                 </Link>
@@ -173,7 +175,8 @@ function HomePage() {
             <ShieldCheck className="h-6 w-6 text-primary" aria-hidden="true" />
             <h2 className="mt-4 text-3xl font-bold">Your trust is part of the workflow</h2>
             <p className="mt-3 text-muted-foreground">
-              This website keeps enquiries private and analytics optional. The planned product puts clear permissions and readable workflows at the centre of the experience.
+              This website keeps enquiries private and analytics optional. The planned product puts
+              clear permissions and readable workflows at the centre of the experience.
             </p>
             <p className="mt-4 text-sm">
               <Link to="/privacy-policy" className="underline underline-offset-4">

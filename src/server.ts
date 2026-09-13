@@ -51,11 +51,15 @@ export default {
       const response = await handler.fetch(request, env, ctx);
       const normalized = await normalizeCatastrophicSsrResponse(response);
       const headers = new Headers(normalized.headers);
-      headers.set('X-Content-Type-Options', 'nosniff');
-      headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-      headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-      if (normalized.status === 404) headers.set('X-Robots-Tag', 'noindex, follow');
-      return new Response(normalized.body, { status: normalized.status, statusText: normalized.statusText, headers });
+      headers.set("X-Content-Type-Options", "nosniff");
+      headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+      headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+      if (normalized.status === 404) headers.set("X-Robots-Tag", "noindex, follow");
+      return new Response(normalized.body, {
+        status: normalized.status,
+        statusText: normalized.statusText,
+        headers,
+      });
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

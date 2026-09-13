@@ -1,8 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-
-
 /** Server-side validation schema — the client uses the same rules. */
 export const contactSchema = z.object({
   submission_id: z.string().uuid(),
