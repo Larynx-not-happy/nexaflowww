@@ -54,8 +54,8 @@ export function loadAnalytics() {
   loaded = true;
   disableAnalytics(false);
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function () {
-    window.dataLayer?.push(arguments);
+  window.gtag = (...args) => {
+    window.dataLayer?.push(args);
   };
   window.gtag("consent", "default", {
     analytics_storage: "granted",
