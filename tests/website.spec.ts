@@ -28,7 +28,7 @@ test("all pages, metadata, accessibility, assets and internal links", async ({ p
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      `https://nexaflow.com${path === "/" ? "" : path}`,
+      `https://nexaflowww.lovable.app${path === "/" ? "" : path}`,
     );
     const result = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
@@ -68,7 +68,7 @@ test("all pages, metadata, accessibility, assets and internal links", async ({ p
   const sitemap = await (await request.get(base + "/sitemap.xml")).text();
   expect((sitemap.match(/<loc>/g) || []).length).toBe(8);
   expect(await (await request.get(base + "/robots.txt")).text()).toContain(
-    "https://nexaflow.com/sitemap.xml",
+    "https://nexaflowww.lovable.app/sitemap.xml",
   );
   const missing = await page.goto(base + "/not-a-real-page");
   expect(missing?.status()).toBe(404);
@@ -126,7 +126,7 @@ test("pricing, FAQ, keyboard, consent and mobile layouts", async ({ page }) => {
       .locator(".rise")
       .evaluate((el) => parseFloat(getComputedStyle(el).animationDuration)),
   ).toBeLessThan(0.01);
-  await page.screenshot({ path: "/mnt/documents/nexaflow-mobile.png", fullPage: true });
+  await page.screenshot({ path: "test-results/nexaflow-mobile.png", fullPage: true });
 });
 test("contact validates, submits once and handles network errors", async ({ page }) => {
   await page.goto(base + "/contact");
@@ -145,7 +145,7 @@ test("contact validates, submits once and handles network errors", async ({ page
   );
   await page.getByRole("button", { name: "Send message" }).click();
   await expect(page.getByRole("alert")).toContainText("couldn't send");
-  await page.unrouteAll();
+  await page.unroute("**/*");
   let posts = 0;
   page.on("request", (r) => {
     if (r.method() === "POST") posts++;

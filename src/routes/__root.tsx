@@ -8,7 +8,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -20,10 +20,34 @@ import { trackPageView } from "@/lib/analytics";
 import { NAV_LINKS, SITE } from "@/lib/site";
 
 function NotFoundComponent() {
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = "Page not found | NexaFlow";
+
+    let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    const existed = !!robots;
+
+    if (!robots) {
+      robots = document.createElement("meta");
+      robots.name = "robots";
+      document.head.appendChild(robots);
+    }
+
+    const prevContent = robots.content;
+    robots.content = "noindex, follow";
+
+    return () => {
+      document.title = prevTitle;
+
+      if (robots) {
+        if (existed) robots.content = prevContent;
+        else robots.remove();
+      }
+    };
+  }, []);
+
   return (
-    <main id="main" tabIndex={-1} className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
-      <title>Page not found | NexaFlow</title>
-      <meta name="robots" content="noindex, follow" />
+    <main id="main" className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Error 404</p>
       <h1 className="mt-4 text-4xl font-bold sm:text-5xl">Page not found</h1>
       <p className="mt-4 max-w-xl text-muted-foreground">
@@ -97,12 +121,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@500;700&display=swap",
-      },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "64x64" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
@@ -146,9 +164,22 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     trackPageView(pathname);
+    const main = document.querySelector<HTMLElement>("main");
+    main?.setAttribute("tabindex", "-1");
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const active = document.activeElement;
+    if (active && active !== document.body && active !== main) return;
+
+    main?.focus({ preventScroll: true });
   }, [pathname]);
 
   return (
