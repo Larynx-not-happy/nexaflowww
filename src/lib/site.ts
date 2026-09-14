@@ -5,7 +5,7 @@
 export const SITE = {
   name: "NexaFlow",
   tagline: "Automate work. Move faster.",
-  url: "https://nexaflowww.lovable.app",
+  url: process.env.SITE_URL || "https://nexaflowww.lovable.app",
   email: "hello@nexaflow.com",
   twitter: "@nexaflow",
   description:
